@@ -1,0 +1,83 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #ff416c, #ff4b2b, #1e90ff, #00c9ff);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Gradient Animation */
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Container Styling */
+  .container {
+    max-width: 500px;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Heading */
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    background: -webkit-linear-gradient(45deg, #ff416c, #ff4b2b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* DatePicker */
+  .datepicker {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    color: #fff;
+  }
+  
+  /* Time Difference Display */
+  .time-difference {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 5px;
+  }
+  
+  .time-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff4b2b;
+  }
+  
+  /* Button */
+  .mission-failed-button {
+    margin-top: 20px;
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .mission-failed-button:hover {
+    background: #c0392b;
+  }

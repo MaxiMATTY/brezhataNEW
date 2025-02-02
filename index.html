@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Brez hata 2.0</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #222;
+            color: #fff;
+            margin: 50px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .time-difference {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        .time-value {
+            font-weight: bold;
+            color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🔥 Brez hata 2.0 🔥</h1>
+        <div class="time-difference">
+            <h2>⏳ Brez hata:</h2>
+            <p>
+                <span id="days" class="time-value">0</span> dni, 
+                <span id="hours" class="time-value">0</span> ur, 
+                <span id="minutes" class="time-value">0</span> minut, 
+                <span id="seconds" class="time-value">0</span> sekund
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function updateTimeDifference() {
+            const staticStartDate = new Date(2025, 1, 1, 18, 0, 0); // 1. februar 2025 ob 18:00
+            const now = new Date();
+            const difference = Math.abs(now - staticStartDate);
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        setInterval(updateTimeDifference, 1000);
+        updateTimeDifference(); // Takoj prikaži ob nalaganju strani
+    </script>
+
+</body>
+</html>
