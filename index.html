@@ -6,69 +6,92 @@
     <link rel="stylesheet" href="style.css">
 
     <title>Brez hata 2.0</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #222;
-            color: #fff;
-            margin: 50px;
-        }
-        .container {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            background: #333;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
-        h1 {
-            font-size: 24px;
-        }
-        .time-difference {
-            font-size: 20px;
-            margin-top: 10px;
-        }
-        .time-value {
-            font-weight: bold;
-            color: #f39c12;
-        }
-    </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>🔥 Brez hata 2.0 🔥</h1>
-        <div class="time-difference">
-            <h2>⏳ Brez hata:</h2>
-            <p>
-                <span id="days" class="time-value">0</span> dni, 
-                <span id="hours" class="time-value">0</span> ur, 
-                <span id="minutes" class="time-value">0</span> minut, 
-                <span id="seconds" class="time-value">0</span> sekund
-            </p>
+    <h1> Brez hata 2.0 </h1>
+    
+    <div class="countdown-wrapper">
+        <div class="container">
+            <div class="time-difference">
+                <h2> Brez hata:</h2>
+                <p>
+                    <span id="days1" class="time-value">0</span> dni, 
+                    <span id="hours1" class="time-value">0</span> ur, 
+                    <span id="minutes1" class="time-value">0</span> minut, 
+                    <span id="seconds1" class="time-value">0</span> sekund
+                </p>
+            </div>
         </div>
+
+        <div class="container">
+            <div class="time-difference">
+                <h2> Brez hata:</h2>
+                <p>
+                    <span id="hours2" class="time-value">0</span> ur, 
+                    <span id="minutes2" class="time-value">0</span> minut, 
+                    <span id="seconds2" class="time-value">0</span> sekund
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="quote-container">
+        <p id="quote">Nalagam citat...</p>
     </div>
 
     <script>
         function updateTimeDifference() {
-            const staticStartDate = new Date(2025, 1, 1, 18, 0, 0); // 1. februar 2025 ob 18:00
+            // Prvi števec (od 1. februarja 2025)
+            const staticStartDate = new Date(2025, 1, 1, 18, 0, 0);
             const now = new Date();
-            const difference = Math.abs(now - staticStartDate);
+            const difference1 = now - staticStartDate;
 
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            const days1 = Math.floor(difference1 / (1000 * 60 * 60 * 24));
+            const hours1 = Math.floor((difference1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes1 = Math.floor((difference1 % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds1 = Math.floor((difference1 % (1000 * 60)) / 1000);
 
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours;
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('days1').textContent = days1;
+            document.getElementById('hours1').textContent = hours1;
+            document.getElementById('minutes1').textContent = minutes1;
+            document.getElementById('seconds1').textContent = seconds1;
+
+            // Drugi števec (od začetka današnjega dne)
+            const todayStart = new Date();
+            todayStart.setHours(0, 0, 0, 0);
+
+            const difference2 = now - todayStart;
+
+            const hours2 = Math.floor(difference2 / (1000 * 60 * 60));
+            const minutes2 = Math.floor((difference2 % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds2 = Math.floor((difference2 % (1000 * 60)) / 1000);
+
+            document.getElementById('hours2').textContent = hours2;
+            document.getElementById('minutes2').textContent = minutes2;
+            document.getElementById('seconds2').textContent = seconds2;
         }
 
         setInterval(updateTimeDifference, 1000);
-        updateTimeDifference(); // Takoj prikaži ob nalaganju strani
+        updateTimeDifference();
+
+        // Izberi quote glede na dan v letu
+        function fetchDailyQuote() {
+            fetch('quotes.txt')
+                .then(response => response.text())
+                .then(data => {
+                    const quotes = data.split('\n').filter(line => line.trim() !== "");
+                    const now = new Date();
+                    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+
+                    // Če je manj quote-ov kot dni v letu, uporabljamo modulo
+                    const quoteIndex = dayOfYear % quotes.length;
+                    document.getElementById('quote').textContent = quotes[quoteIndex];
+                })
+                .catch(error => console.error("Napaka pri branju quotes.txt:", error));
+        }
+
+        fetchDailyQuote();
     </script>
 
 </body>
